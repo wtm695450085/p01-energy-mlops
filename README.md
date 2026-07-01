@@ -1,5 +1,13 @@
 # EnergyForecast PL — Środowisko produkcyjne MLOps
 
+http://62.72.20.95:8101  FastAPI
+
+http://62.72.20.95:5101  MLflow
+
+http://62.72.20.95:9101  Prometheus
+
+http://62.72.20.95:3101  Grafana
+
 Prognozowanie godzinowych cen energii elektrycznej na **Rynku Dnia Następnego** w Polsce (PLN/MWh).
 
 Model: sklearn pipeline (HistGradientBoostingRegressor) · 8 cech · Dane: PSE + Open-Meteo
