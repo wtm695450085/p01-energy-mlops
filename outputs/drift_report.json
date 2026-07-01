@@ -1,0 +1,62 @@
+{
+  "status": "drift_detected",
+  "features": {
+    "hour": {
+      "reference_mean": 11.5,
+      "current_mean": 11.5,
+      "reference_std": 6.92,
+      "current_std": 6.93,
+      "drift_detected": false
+    },
+    "day_of_week": {
+      "reference_mean": 3.0,
+      "current_mean": 3.03,
+      "reference_std": 2.0,
+      "current_std": 1.94,
+      "drift_detected": false
+    },
+    "is_holiday_or_weekend": {
+      "reference_mean": 0.31,
+      "current_mean": 0.3,
+      "reference_std": 0.46,
+      "current_std": 0.46,
+      "drift_detected": false
+    },
+    "temp_pl": {
+      "reference_mean": 10.57,
+      "current_mean": 16.91,
+      "reference_std": 8.66,
+      "current_std": 4.02,
+      "drift_detected": true
+    },
+    "wind_pl": {
+      "reference_mean": 10.26,
+      "current_mean": 9.41,
+      "reference_std": 3.66,
+      "current_std": 3.05,
+      "drift_detected": false
+    },
+    "radiation_pl": {
+      "reference_mean": 126.5,
+      "current_mean": 213.76,
+      "reference_std": 190.69,
+      "current_std": 234.64,
+      "drift_detected": true
+    },
+    "price_lag_24h": {
+      "reference_mean": 451.19,
+      "current_mean": 453.98,
+      "reference_std": 238.08,
+      "current_std": 235.27,
+      "drift_detected": false
+    },
+    "price_lag_168h": {
+      "reference_mean": 451.23,
+      "current_mean": 457.85,
+      "reference_std": 238.37,
+      "current_std": 228.26,
+      "drift_detected": false
+    }
+  },
+  "drift_detected": true
+}

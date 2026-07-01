@@ -1,0 +1,39 @@
+# Notebook źródłowy (duży, nie do obrazu Docker)
+notebook/
+
+# Git
+.git/
+.gitignore
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+
+# Środowisko wirtualne
+.venv/
+venv/
+env/
+
+# Bazy danych (montowane jako wolumeny, nie do obrazu)
+*.db
+
+# Wyniki (montowane jako wolumeny)
+outputs/
+
+# Dane (montowane jako wolumeny)
+data/
+
+# Logi i artefakty tymczasowe
+*.log
+*.tmp
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db

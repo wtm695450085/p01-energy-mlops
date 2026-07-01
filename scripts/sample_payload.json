@@ -1,0 +1,10 @@
+{
+  "hour": 23,
+  "day_of_week": 4,
+  "is_holiday_or_weekend": 0,
+  "temp_pl": 14.6,
+  "wind_pl": 7.2,
+  "radiation_pl": 0.0,
+  "price_lag_24h": 512.33,
+  "price_lag_168h": 651.26
+}

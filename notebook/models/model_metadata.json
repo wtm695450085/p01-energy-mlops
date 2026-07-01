@@ -1,0 +1,36 @@
+{
+  "model_name": "pl_day_ahead_power_price",
+  "champion": "HistGB",
+  "target": "price_pln",
+  "target_unit": "PLN/MWh",
+  "features": [
+    "hour",
+    "day_of_week",
+    "is_holiday_or_weekend",
+    "temp_pl",
+    "wind_pl",
+    "radiation_pl",
+    "price_lag_24h",
+    "price_lag_168h"
+  ],
+  "train_range": [
+    "2024-06-21 00:00:00",
+    "2026-04-13 23:00:00"
+  ],
+  "test_range": [
+    "2026-04-14 00:00:00",
+    "2026-06-12 23:00:00"
+  ],
+  "metrics_test": {
+    "MAE": 85.15,
+    "RMSE": 144.6,
+    "R2": 0.724
+  },
+  "baseline_naive_mae": 150.43,
+  "sklearn_version": "1.8.0",
+  "exported_at": "2026-06-13T11:04:06",
+  "data_sources": {
+    "prices": "PSE api.raporty.pse.pl / csdac-pln (RDN/SDAC)",
+    "weather": "Open-Meteo, srednia z 10 miast: Warszawa, Krakow, Lodz, Wroclaw, Poznan, Gdansk, Szczecin, Lublin, Bialystok, Katowice"
+  }
+}

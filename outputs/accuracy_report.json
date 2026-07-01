@@ -1,0 +1,65 @@
+[
+  {
+    "data_prognozy": "2026-06-14",
+    "mae_model": 80.34,
+    "rmse_model": 84.76,
+    "mae_baseline": 39.16,
+    "evaluated_at": "2026-06-30T10:00:12.720762"
+  },
+  {
+    "data_prognozy": "2026-06-19",
+    "mae_model": 111.81,
+    "rmse_model": 161.03,
+    "mae_baseline": 179.85,
+    "evaluated_at": "2026-06-30T10:00:12.723682"
+  },
+  {
+    "data_prognozy": "2026-06-20",
+    "mae_model": 73.77,
+    "rmse_model": 111.65,
+    "mae_baseline": 179.28,
+    "evaluated_at": "2026-06-30T10:00:12.724958"
+  },
+  {
+    "data_prognozy": "2026-06-21",
+    "mae_model": 91.04,
+    "rmse_model": 91.04,
+    "mae_baseline": 130.24,
+    "evaluated_at": "2026-06-30T10:00:12.726002"
+  },
+  {
+    "data_prognozy": "2026-06-23",
+    "mae_model": 221.44,
+    "rmse_model": 360.28,
+    "mae_baseline": 554.87,
+    "evaluated_at": "2026-06-30T10:00:12.726714"
+  },
+  {
+    "data_prognozy": "2026-06-25",
+    "mae_model": 198.38,
+    "rmse_model": 245.62,
+    "mae_baseline": 212.54,
+    "evaluated_at": "2026-06-30T10:00:12.727546"
+  },
+  {
+    "data_prognozy": "2026-06-26",
+    "mae_model": 8.52,
+    "rmse_model": 8.52,
+    "mae_baseline": 74.74,
+    "evaluated_at": "2026-06-30T10:00:12.728390"
+  },
+  {
+    "data_prognozy": "2026-06-27",
+    "mae_model": 150.21,
+    "rmse_model": 210.32,
+    "mae_baseline": 203.8,
+    "evaluated_at": "2026-06-30T10:00:12.729390"
+  },
+  {
+    "data_prognozy": "2026-06-29",
+    "mae_model": 129.74,
+    "rmse_model": 239.33,
+    "mae_baseline": 359.73,
+    "evaluated_at": "2026-06-30T10:00:12.730267"
+  }
+]

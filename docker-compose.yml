@@ -1,0 +1,76 @@
+services:
+  api:
+    build: .
+    container_name: energy-forecast-api
+    ports:
+      - "8101:8000"
+    volumes:
+      # Modele podmieniane bez przebudowy obrazu
+      - ./models:/app/models
+      # Baza szeregów czasowych i logi predykcji (dane przeżywają restart)
+      - ./data:/app/data
+      # Raporty i prognozy wyjściowe
+      - ./outputs:/app/outputs
+      # sample_payload.json dostępny wewnątrz kontenera
+      - ./scripts:/app/scripts:ro
+    environment:
+      - PYTHONUNBUFFERED=1
+    # Kontener musi mieć dostęp do internetu (api.raporty.pse.pl, open-meteo.com)
+    # Nie dodawaj network: internal — wymagane zewnętrzne połączenia
+    healthcheck:
+      test: ["CMD", "python3", "-c",
+             "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
+
+  scheduler:
+    build: .
+    container_name: energy-forecast-scheduler
+    command: ["python3", "src/scheduler/scheduler.py"]
+    volumes:
+      - ./models:/app/models
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+      - ./scripts:/app/scripts:ro
+      - ./src:/app/src:ro
+    environment:
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - api
+      - mlflow
+    restart: unless-stopped
+
+  mlflow:
+    build: .
+    container_name: energy-forecast-mlflow
+    command: ["mlflow", "server", "--backend-store-uri", "sqlite:////app/data/mlflow.db", "--default-artifact-root", "/app/data/mlruns", "--host", "0.0.0.0", "--port", "5000"]
+    ports:
+      - "5101:5000"
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: energy-forecast-prometheus
+    ports:
+      - "9101:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    restart: unless-stopped
+    depends_on:
+      - api
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: energy-forecast-grafana
+    ports:
+      - "3101:3000"
+    volumes:
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+    restart: unless-stopped
+    depends_on:
+      - prometheus
