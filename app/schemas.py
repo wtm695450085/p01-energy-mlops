@@ -1,18 +1,18 @@
-"""Schematy Pydantic — 1:1 z 8 cechami modelu z model_metadata.json."""
+"""Pydantic schemas - one-to-one with the 8 model features from model_metadata.json."""
 from pydantic import BaseModel, Field, field_validator
 
 
 class EnergyFeatures(BaseModel):
-    """8 cech wejściowych modelu prognozowania cen energii RDN."""
+    """8 input features for the RDN energy price forecasting model."""
 
-    hour: int = Field(..., ge=0, le=23, description="Godzina doby (0–23)")
-    day_of_week: int = Field(..., ge=0, le=6, description="Dzień tygodnia (0=pon, 6=niedz)")
-    is_holiday_or_weekend: int = Field(..., ge=0, le=1, description="1 = weekend lub święto")
-    temp_pl: float = Field(..., ge=-40.0, le=50.0, description="Temperatura krajowa [°C]")
-    wind_pl: float = Field(..., ge=0.0, le=150.0, description="Prędkość wiatru krajowa [km/h]")
-    radiation_pl: float = Field(..., ge=0.0, le=1500.0, description="Nasłonecznienie krajowe [W/m²]")
-    price_lag_24h: float = Field(..., ge=-500.0, le=20000.0, description="Cena RDN sprzed 24h [PLN/MWh]")
-    price_lag_168h: float = Field(..., ge=-500.0, le=20000.0, description="Cena RDN sprzed 168h [PLN/MWh]")
+    hour: int = Field(..., ge=0, le=23, description="Hour of day (0-23)")
+    day_of_week: int = Field(..., ge=0, le=6, description="Day of week (0=Mon, 6=Sun)")
+    is_holiday_or_weekend: int = Field(..., ge=0, le=1, description="1 = weekend or holiday")
+    temp_pl: float = Field(..., ge=-40.0, le=50.0, description="National temperature [°C]")
+    wind_pl: float = Field(..., ge=0.0, le=150.0, description="National wind speed [km/h]")
+    radiation_pl: float = Field(..., ge=0.0, le=1500.0, description="National solar radiation [W/m²]")
+    price_lag_24h: float = Field(..., ge=-500.0, le=20000.0, description="RDN price from 24h ago [PLN/MWh]")
+    price_lag_168h: float = Field(..., ge=-500.0, le=20000.0, description="RDN price from 168h ago [PLN/MWh]")
 
     model_config = {"json_schema_extra": {
         "example": {

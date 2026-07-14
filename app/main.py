@@ -4,7 +4,7 @@ FastAPI — Prognozowanie cen energii RDN (Polska)
 Endpointy:
   GET  /                   — strona HTML
   GET  /health             — status aplikacji
-  POST /predict            — predykcja z 8 cech (tryb ręczny)
+  POST /predict            - prediction from 8 features (manual mode)
   GET  /predict/next-day   — prognoza 24h na jutro (automatyczne cechy)
 """
 import uuid
@@ -47,8 +47,8 @@ from app.schemas import (
 # --- Inicjalizacja aplikacji ------------------------------------------------
 
 app = FastAPI(
-    title="Prognoza Cen Energii RDN",
-    description="MLOps API — godzinowe prognozy cen energii na Rynku Dnia Następnego (Polska)",
+    title="RDN Energy Price Forecast",
+    description="MLOps API - hourly energy price forecasts for Poland's Day-Ahead Market",
     version="1.0.0",
 )
 
@@ -67,16 +67,20 @@ async def startup_event():
 
 @app.get("/", include_in_schema=False)
 async def root():
-    """Serwuje stronę główną HTML."""
+    """Serves the main HTML page."""
     html_path = _FRONTEND_DIR / "index.html"
     if not html_path.exists():
-        raise HTTPException(status_code=404, detail="Frontend nie znaleziony")
-    return FileResponse(str(html_path), media_type="text/html")
+        raise HTTPException(status_code=404, detail="Frontend not found")
+    return FileResponse(
+        str(html_path),
+        media_type="text/html",
+        headers={"Cache-Control": "no-store, no-cache, must-revalidate, max-age=0"},
+    )
 
 
 @app.get("/health")
 async def health():
-    """Status aplikacji i modelu."""
+    """Application and model status."""
     return {
         "status": "ok",
         "model_loaded": model_state.loaded,
@@ -91,17 +95,17 @@ async def health():
 
 @app.post("/predict", response_model=PredictionResponse)
 async def predict(features: EnergyFeatures):
-    """Predykcja z 8 cech wejściowych — tryb ręczny/testowy."""
+    """Prediction from 8 input features - manual/test mode."""
     start_time = time.time()
     request_id = str(uuid.uuid4())
     mlops_predictions_total.inc()
     
     if not model_state.loaded:
         mlops_prediction_errors_total.inc()
-        log_prediction(request_id, features.model_dump(), None, model_state.model_file or "", "error", "Model nie załadowany")
+        log_prediction(request_id, features.model_dump(), None, model_state.model_file or "", "error", "Model not loaded")
         raise HTTPException(
             status_code=503,
-            detail=f"Model nie załadowany: {model_state.error}",
+            detail=f"Model not loaded: {model_state.error}",
         )
 
     try:
@@ -119,7 +123,7 @@ async def predict(features: EnergyFeatures):
     except Exception as e:
         mlops_prediction_errors_total.inc()
         log_prediction(request_id, features.model_dump(), None, model_state.model_file or "", "error", str(e))
-        raise HTTPException(status_code=500, detail=f"Błąd predykcji: {e}")
+        raise HTTPException(status_code=500, detail=f"Prediction error: {e}")
 
     return PredictionResponse(
         prediction=round(pred, 2),
@@ -131,15 +135,15 @@ async def predict(features: EnergyFeatures):
 
 @app.get("/predict/next-day", response_model=NextDayForecastResponse)
 async def predict_next_day():
-    """GŁÓWNA funkcja: automatyczna prognoza 24h na jutro.
+    """MAIN function: automatic 24h forecast for tomorrow.
 
-    Pobiera prognozę pogody z Open-Meteo, buduje cechy kalendarza i lagi cen
-    z bazy timeseries.db, a następnie zwraca 24 godzinowe prognozy cen RDN.
+    Fetches the weather forecast from Open-Meteo, builds calendar features and price lags
+    from timeseries.db, then returns 24 hourly RDN price forecasts.
     """
     if not model_state.loaded:
         raise HTTPException(
             status_code=503,
-            detail=f"Model nie załadowany: {model_state.error}",
+            detail=f"Model not loaded: {model_state.error}",
         )
 
     try:
@@ -147,20 +151,20 @@ async def predict_next_day():
     except Exception as e:
         raise HTTPException(
             status_code=502,
-            detail=f"Nie udało się zbudować cech na jutro: {e}",
+            detail=f"Could not build tomorrow features: {e}",
         )
 
     if feat_df.empty:
         raise HTTPException(
             status_code=422,
-            detail="Brak danych do prognozy na jutro (pusta tabela cech)",
+            detail="No data available for tomorrow forecast (empty feature table)",
         )
 
     try:
         X = feat_df[FEATURES]
         preds = model_state.model.predict(X)
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Błąd predykcji: {e}")
+        raise HTTPException(status_code=500, detail=f"Prediction error: {e}")
 
     target_date = feat_df["ts"].dt.date.iloc[0].isoformat()
     forecasts = []
@@ -191,7 +195,7 @@ async def predict_next_day():
 
 @app.get("/logs/recent")
 async def logs_recent():
-    """Zwraca ostatnie 20 zapytań do predykcji."""
+    """Returns the latest 20 prediction requests."""
     p = get_logs_db_path()
     if not p.exists():
         return {"logs": []}
@@ -208,7 +212,7 @@ async def logs_recent():
 
 @app.get("/monitoring/summary")
 async def monitoring_summary():
-    """Zwraca podsumowanie predykcji z bazy logów."""
+    """Returns the prediction summary from the log database."""
     p = get_logs_db_path()
     if not p.exists():
         return {
@@ -249,7 +253,7 @@ async def metrics():
 
 @app.get("/monitoring/accuracy")
 async def monitoring_accuracy():
-    """Zwraca historię dziennych błędów prognozy (model vs baseline)."""
+    """Returns the daily forecast error history (model vs baseline)."""
     p = get_logs_db_path()
     if not p.exists():
         return {"history": []}
@@ -264,19 +268,19 @@ async def monitoring_accuracy():
 
 @app.get("/monitoring/drift")
 async def monitoring_drift():
-    """Zwraca ostatni raport dryftu."""
+    """Returns the latest drift report."""
     import json
     report_path = Path("/app/outputs/drift_report.json")
     if not report_path.exists():
         report_path = Path("outputs/drift_report.json")
         
     if not report_path.exists():
-        return {"status": "not_available", "message": "Raport dryftu jeszcze nie został wygenerowany."}
+        return {"status": "not_available", "message": "The drift report has not been generated yet."}
         
     try:
         return json.loads(report_path.read_text(encoding="utf-8"))
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Błąd odczytu raportu: {e}")
+        raise HTTPException(status_code=500, detail=f"Report read error: {e}")
 
 
 @app.post("/admin/reload-model")
@@ -285,7 +289,7 @@ async def admin_reload_model():
     try:
         reload_model()
         if model_state.loaded:
-            return {"status": "ok", "message": "Model przeładowany", "file": model_state.model_file}
+            return {"status": "ok", "message": "Model reloaded", "file": model_state.model_file}
         else:
             raise HTTPException(status_code=500, detail=model_state.error)
     except Exception as e:
@@ -302,17 +306,20 @@ async def admin_retrain():
         try:
             # Uruchamia skrypt w tle
             subprocess.run(["python3", "src/training/retrain.py"], check=True)
-            # Po poprawnym trenowaniu należy odświeżyć model
+            # After successful training, the model should be refreshed
             reload_model()
         except Exception as e:
-            print(f"Błąd zadania w tle (retrening): {e}")
+            print(f"Background task error (retraining): {e}")
 
-    # Uruchomienie asynchronicznie - tu na potrzeby testu zrobimy to synchronicznie dla małego modelu lub przez BackgroundTasks, ale FastAPI BackgroundTasks jest czystsze.
-    # Aby to zrobić bez BackgroundTasks w argumencie, zaimportujmy wewnątrz:
-    # Właściwie dla API najlepiej puścić to w subprocesie nieblokującym
+    # Asynchronous run - for testing we can run this synchronously for a small model or via BackgroundTasks, but FastAPI BackgroundTasks is cleaner.
+    # To do this without BackgroundTasks in the argument, import it inside:
+    # For the API, it is best to run this in a non-blocking subprocess
     subprocess.Popen(["python3", "src/training/retrain.py"])
-    return {"status": "ok", "message": "Zadanie retreningu zostało uruchomione w tle."}
+    return {"status": "ok", "message": "The retraining job has been started in the background."}
 
 @app.get("/architecture.html", include_in_schema=False)
 async def architecture_page():
-    return FileResponse("frontend/architecture.html")
+    return FileResponse(
+        "frontend/architecture.html",
+        headers={"Cache-Control": "no-store, no-cache, must-revalidate, max-age=0"},
+    )

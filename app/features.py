@@ -99,7 +99,7 @@ def http_get_json(url: str, params: dict | None = None, tries: int = 3, timeout:
         except Exception as e:  # noqa: BLE001
             last_err = e
             time.sleep(2 * attempt)
-    raise RuntimeError(f"Nie udało się pobrać {url}: {last_err}")
+    raise RuntimeError(f"Could not fetch {url}: {last_err}")
 
 
 # --- Ceny PSE ---------------------------------------------------------------
@@ -284,7 +284,7 @@ def build_tomorrow_features(db_path: Path | None = None) -> pd.DataFrame:
                 hist_to_db["ts"] = hist_to_db["ts"].astype(str)
                 hist_to_db.to_sql("prices", con, if_exists="replace", index=False)
         except Exception as e:
-            print(f"Uwaga: nie udało się dociągnąć najświeższych cen: {e}")
+            print(f"Warning: could not fetch the latest prices: {e}")
 
     # 4) Lagi
     s = (hist.dropna(subset=["price_pln"])

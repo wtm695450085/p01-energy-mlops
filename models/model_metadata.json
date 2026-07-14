@@ -28,6 +28,6 @@
   },
   "baseline_naive_mae": 150.36,
   "sklearn_version": "1.8.0",
-  "exported_at": "2026-06-28T02:00:51.563464",
-  "mlflow_run_id": "6304c234fa3c49a4854f014a449207f3"
+  "exported_at": "2026-07-12T02:00:51.426924",
+  "mlflow_run_id": "17a2e1ea4e2849b09e3853dbd9225893"
 }

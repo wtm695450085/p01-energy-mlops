@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Prognoza Cen Energii RDN — Polska</title>
-  <meta name="description" content="Inteligentna prognoza godzinowych cen energii elektrycznej na Rynku Dnia Następnego w Polsce. Kliknij, by uzyskać 24 prognozy na jutro." />
+  <title>RDN Energy Price Forecast - Poland</title>
+  <meta name="description" content="Smart hourly electricity price forecast for Poland's Day-Ahead Market. Click to generate a 24-hour forecast for tomorrow." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -405,7 +405,7 @@
       .hero { padding: 32px 0 28px; }
     }
 
-    /* === FINALNY FRONTEND: czysty hero + spójna stylistyka MLOps === */
+    /* === FINAL FRONTEND: clean hero + consistent MLOps styling === */
     header { display: none !important; }
 
     main {
@@ -774,7 +774,7 @@
 
   
 
-    /* === PUDEŁKO PRODUKTU ZAMIAST PORTRETU === */
+    /* === PRODUCT BOX INSTEAD OF PORTRAIT === */
     .hero,
     .hero-blue-photo {
       max-width: 1240px !important;
@@ -823,6 +823,237 @@
       }
     }
 
+    .promo-row {
+      max-width: 1240px;
+      margin: -10px auto 28px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(270px, 320px);
+      align-items: start;
+      gap: 18px;
+    }
+
+    .hero-copy .promo-row {
+      max-width: none;
+      margin: 0 0 24px;
+      grid-template-columns: minmax(0, 1fr) minmax(210px, 240px);
+      gap: 14px;
+    }
+
+    .hero-copy .coffee-invite {
+      grid-template-columns: 82px minmax(0, 1fr);
+      gap: 12px;
+      padding: 12px;
+    }
+
+    .hero-copy .coffee-photo {
+      width: 82px;
+      height: 74px;
+    }
+
+    .hero-copy .coffee-title {
+      font-size: 1rem;
+    }
+
+    .hero-copy .coffee-text {
+      font-size: .82rem;
+    }
+
+    .hero-copy .coffee-cta {
+      grid-column: 1 / -1;
+      width: 100%;
+      min-height: 36px;
+      padding: 8px 12px;
+    }
+
+    .hero-copy .ai-call-card {
+      padding: 12px;
+    }
+
+    .hero-copy .ai-call-title {
+      font-size: .98rem;
+    }
+
+    .hero-copy .ai-call-text {
+      font-size: .76rem;
+      margin-bottom: 9px;
+    }
+
+    .coffee-invite {
+      display: grid;
+      grid-template-columns: 126px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 22px;
+      padding: 16px 20px;
+      color: #f8fbff;
+      text-decoration: none;
+      background:
+        linear-gradient(135deg, rgba(251,191,36,.10), rgba(37,99,235,.10)),
+        rgba(12,30,57,.78);
+      border: 1px solid rgba(251,191,36,.58);
+      border-radius: 14px;
+      box-shadow: 0 24px 58px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.06);
+      transition: var(--transition);
+    }
+
+    .coffee-invite:hover {
+      transform: translateY(-2px);
+      border-color: rgba(252,211,77,.92);
+      background:
+        linear-gradient(135deg, rgba(251,191,36,.15), rgba(37,99,235,.14)),
+        rgba(15,36,68,.86);
+      box-shadow: 0 30px 72px rgba(0,0,0,.36), 0 0 30px rgba(251,191,36,.10);
+    }
+
+    .coffee-photo {
+      width: 118px;
+      height: 86px;
+      border-radius: 8px;
+      object-fit: cover;
+      object-position: 50% 38%;
+      border: 1px solid rgba(251,191,36,.34);
+      display: block;
+    }
+
+    .coffee-copy {
+      min-width: 0;
+    }
+
+    .coffee-title {
+      margin: 0 0 7px;
+      color: #fbbf24;
+      font-size: clamp(1.02rem, 2vw, 1.22rem);
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .coffee-text {
+      margin: 0;
+      color: #dbeafe;
+      font-size: .94rem;
+      line-height: 1.55;
+    }
+
+    .coffee-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 10px 16px;
+      border-radius: 10px;
+      color: #0b1220;
+      background: #fbbf24;
+      font-size: .88rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .ai-call-card {
+      aspect-ratio: 1 / 1;
+      display: grid;
+      grid-template-rows: minmax(0, 1fr) auto;
+      gap: 12px;
+      padding: 16px;
+      color: #f8fbff;
+      text-decoration: none;
+      background:
+        linear-gradient(145deg, rgba(34,211,238,.12), rgba(37,99,235,.16)),
+        rgba(12,30,57,.82);
+      border: 1px solid rgba(96,165,250,.42);
+      border-radius: 14px;
+      box-shadow: 0 24px 58px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.06);
+      transition: var(--transition);
+      overflow: hidden;
+    }
+
+    .ai-call-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(125,211,252,.82);
+      background:
+        linear-gradient(145deg, rgba(34,211,238,.18), rgba(37,99,235,.22)),
+        rgba(15,36,68,.9);
+      box-shadow: 0 30px 72px rgba(0,0,0,.36), 0 0 30px rgba(34,211,238,.12);
+    }
+
+    .ai-call-photo {
+      width: 100%;
+      min-height: 0;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 28%;
+      border-radius: 10px;
+      border: 1px solid rgba(125,211,252,.32);
+      display: block;
+    }
+
+    .ai-call-title {
+      margin: 0 0 8px;
+      color: #e0f2fe;
+      font-size: clamp(1rem, 1.5vw, 1.15rem);
+      font-weight: 850;
+      line-height: 1.18;
+    }
+
+    .ai-call-text {
+      margin: 0 0 12px;
+      color: #bfdbfe;
+      font-size: .82rem;
+      line-height: 1.42;
+    }
+
+    .ai-call-phone {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 40px;
+      padding: 9px 12px;
+      border-radius: 10px;
+      color: #061526;
+      background: #7dd3fc;
+      font-size: .94rem;
+      font-weight: 900;
+      letter-spacing: .01em;
+    }
+
+    @media (max-width: 760px) {
+      .promo-row {
+        grid-template-columns: 1fr;
+        margin-top: -8px;
+      }
+
+      .hero-copy .promo-row {
+        grid-template-columns: 1fr;
+        margin-top: 0;
+      }
+
+      .coffee-invite {
+        grid-template-columns: 88px minmax(0, 1fr);
+        padding: 14px;
+        gap: 14px;
+      }
+
+      .coffee-photo {
+        width: 88px;
+        height: 74px;
+      }
+
+      .coffee-cta {
+        grid-column: 1 / -1;
+        width: 100%;
+      }
+
+      .ai-call-card {
+        aspect-ratio: auto;
+        grid-template-columns: 94px minmax(0, 1fr);
+        grid-template-rows: auto;
+        align-items: center;
+      }
+
+      .ai-call-photo {
+        height: 112px;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -834,19 +1065,38 @@
     <!-- Hero -->
     <section class="hero hero-blue-photo">
       <div class="hero-copy">
-        <div class="system-label">System demonstracyjny MLOps</div>
-        <h2>Prognoza cen energii</h2>
-        <div class="owner-banner">Wojciech Moszczyński · demonstracyjny system MLOps</div>
+        <div class="system-label">MLOps demonstration system</div>
+        <h2>Energy price forecast</h2>
+        <div class="owner-banner">Wojciech Moszczyński · MLOps demonstration system</div>
+        <section class="promo-row" aria-label="Contact options">
+          <a class="coffee-invite" href="https://kalendarz.sigmaquality.pl/" target="_blank" rel="noopener" aria-label="Open Wojciech Moszczynski's calendar">
+            <img class="coffee-photo" src="/static/assets/zapraszam.png?v=20260711" alt="Wojciech Moszczynski inviting you for coffee" />
+            <div class="coffee-copy">
+              <h3 class="coffee-title">Let's meet over coffee</h3>
+              <p class="coffee-text">Open my calendar and book a time that works for you.</p>
+            </div>
+            <span class="coffee-cta">Book a meeting</span>
+          </a>
+
+          <a class="ai-call-card" href="tel:+48228738219" aria-label="Call the AI assistant at 22 873 82 19">
+            <img class="ai-call-photo" src="/static/assets/ona.png?v=20260711" alt="AI assistant for car insurance advice" />
+            <div class="ai-call-copy">
+              <h3 class="ai-call-title">Zadzwoń do asystenta AI on Ci pomoże</h3>
+              <p class="ai-call-text">Udzielimy Ci wszelkich rad dotyczących ubezpieczeń samochodowych telefonicznie.</p>
+              <span class="ai-call-phone">22 873 82 19</span>
+            </div>
+          </a>
+        </section>
         <div class="hero-actions">
           <button id="btn-forecast">
             <div class="spinner"></div>
-            <span class="btn-text">Prognoza na jutro</span>
+            <span class="btn-text">Forecast tomorrow</span>
           </button>
-          <a class="architecture-link" href="/architecture.html">Zobacz schemat systemu MLOps</a>
+          <a class="architecture-link" href="/architecture.html">View MLOps system architecture</a>
         </div>
       </div>
-      <aside class="product-card" aria-label="Pudełko oprogramowania">
-        <img class="product-box-img" src="/static/assets/box.png" alt="Pudełko oprogramowania Prognoza cen energii" />
+      <aside class="product-card" aria-label="Software product box">
+        <img class="product-box-img" src="/static/assets/box.png" alt="Energy price forecast software product box" />
       </aside>
     </section>
 
@@ -859,24 +1109,24 @@
       <div class="stats-row" id="stats-row"></div>
 
       <div class="card" style="margin-bottom:24px;">
-        <div class="card-title">Profil dobowy cen RDN [PLN/MWh]</div>
+        <div class="card-title">Daily RDN price profile [PLN/MWh]</div>
         <div class="chart-wrapper">
           <canvas id="price-chart"></canvas>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-title">Prognozy godzinowe</div>
+        <div class="card-title">Hourly forecasts</div>
         <div class="table-wrapper">
           <table>
             <thead>
               <tr>
-                <th>Godz.</th>
-                <th>Cena [PLN/MWh]</th>
+                <th>Hour</th>
+                <th>Price [PLN/MWh]</th>
                 <th>Temp [°C]</th>
-                <th>Wiatr [km/h]</th>
+                <th>Wind [km/h]</th>
                 <th>Nasl. [W/m²]</th>
-                <th>Dzień</th>
+                <th>Day</th>
               </tr>
             </thead>
             <tbody id="forecast-tbody"></tbody>
@@ -889,61 +1139,61 @@
     <!-- Advanced mode -->
     <details id="advanced-details">
       <summary>
-        🔧 Tryb zaawansowany — ręczne wpisanie cech
+        Advanced mode - manual feature input
         <span class="chevron">▼</span>
       </summary>
       <div class="advanced-body">
         <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:20px;">
-          Wpisz wartości 8 cech wejściowych, aby uzyskać predykcję dla dowolnego scenariusza.
+          Enter the 8 input feature values to get a prediction for any scenario.
         </p>
         <div class="form-grid">
           <div class="field">
-            <label for="f-hour">Godzina (0–23)</label>
+            <label for="f-hour">Hour (0-23)</label>
             <input type="number" id="f-hour" min="0" max="23" value="14" />
           </div>
           <div class="field">
-            <label for="f-dow">Dzień tygodnia</label>
+            <label for="f-dow">Day of week</label>
             <select id="f-dow">
-              <option value="0">Poniedziałek</option>
-              <option value="1">Wtorek</option>
-              <option value="2">Środa (wybrana)</option>
-              <option value="3">Czwartek</option>
-              <option value="4">Piątek</option>
-              <option value="5">Sobota</option>
-              <option value="6">Niedziela</option>
+              <option value="0">Monday</option>
+              <option value="1">Tuesday</option>
+              <option value="2">Wednesday (selected)</option>
+              <option value="3">Thursday</option>
+              <option value="4">Friday</option>
+              <option value="5">Saturday</option>
+              <option value="6">Sunday</option>
             </select>
           </div>
           <div class="field">
-            <label for="f-holiday">Weekend / Święto</label>
+            <label for="f-holiday">Weekend / Holiday</label>
             <select id="f-holiday">
-              <option value="0">Nie (dzień roboczy)</option>
-              <option value="1">Tak (weekend/święto)</option>
+              <option value="0">No (business day)</option>
+              <option value="1">Yes (weekend/holiday)</option>
             </select>
           </div>
           <div class="field">
-            <label for="f-temp">Temp. krajowa [°C]</label>
+            <label for="f-temp">National temperature [°C]</label>
             <input type="number" id="f-temp" step="0.1" value="15.3" />
           </div>
           <div class="field">
-            <label for="f-wind">Wiatr [km/h]</label>
+            <label for="f-wind">Wind [km/h]</label>
             <input type="number" id="f-wind" step="0.1" min="0" value="12.5" />
           </div>
           <div class="field">
-            <label for="f-rad">Nasłonecznienie [W/m²]</label>
+            <label for="f-rad">Solar radiation [W/m²]</label>
             <input type="number" id="f-rad" step="1" min="0" value="320" />
           </div>
           <div class="field">
-            <label for="f-lag24">Cena lag 24h [PLN/MWh]</label>
+            <label for="f-lag24">Price lag 24h [PLN/MWh]</label>
             <input type="number" id="f-lag24" step="0.01" value="285.50" />
           </div>
           <div class="field">
-            <label for="f-lag168">Cena lag 168h [PLN/MWh]</label>
+            <label for="f-lag168">Price lag 168h [PLN/MWh]</label>
             <input type="number" id="f-lag168" step="0.01" value="271.30" />
           </div>
         </div>
-        <button id="btn-manual">Oblicz predykcję</button>
+        <button id="btn-manual">Calculate prediction</button>
         <div id="manual-result">
-          <div class="result-label">Prognozowana cena RDN</div>
+          <div class="result-label">Forecasted RDN price</div>
           <div class="result-value" id="manual-result-value"></div>
         </div>
         <div id="manual-error" style="display:none;color:#f87171;font-size:0.85rem;margin-top:12px;"></div>
@@ -955,9 +1205,9 @@
 
 <footer>
   <div class="container">
-    Dane: <a href="https://api.raporty.pse.pl" target="_blank" rel="noopener">PSE API</a> ·
+    Data: <a href="https://api.raporty.pse.pl" target="_blank" rel="noopener">PSE API</a> ·
     <a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo</a> ·
-    Model: sklearn pipeline · Prognoza dla Rynku Dnia Następnego (SDAC)
+    Model: sklearn pipeline · Day-Ahead Market forecast (SDAC)
   </div>
 </footer>
 
@@ -966,7 +1216,7 @@
    EnergyForecast PL — Frontend Logic
    ========================================================= */
 
-const API_BASE = '';   // ten sam origin — bez CORS
+const API_BASE = '';   // Same origin - no CORS
 
 // ---- DOM refs ---------------------------------------------------------------
 const btnForecast   = document.getElementById('btn-forecast');
@@ -985,21 +1235,21 @@ let chartInstance = null;
 
 // ---- Health check -----------------------------------------------------------
 async function checkHealth() {
-  // Górny pasek statusu został usunięty z widoku. Funkcja zostaje tylko jako bezpieczny fallback.
+  // The top status bar was removed from the view. This function remains as a safe fallback only.
   if (!healthDot || !healthText) return;
   try {
     const r = await fetch(`${API_BASE}/health`);
     const data = await r.json();
     if (data.model_loaded) {
       healthDot.className = 'ok';
-      healthText.textContent = `Model gotowy · sklearn ${data.sklearn_version || ''}`;
+      healthText.textContent = `Model ready · sklearn ${data.sklearn_version || ''}`;
     } else {
       healthDot.className = 'err';
-      healthText.textContent = 'Model nie załadowany';
+      healthText.textContent = 'Model not loaded';
     }
   } catch {
     healthDot.className = 'err';
-    healthText.textContent = 'API niedostępne';
+    healthText.textContent = 'API unavailable';
   }
 }
 
@@ -1026,7 +1276,7 @@ function buildChart(labels, prices) {
     data: {
       labels,
       datasets: [{
-        label: 'Prognozowana cena [PLN/MWh]',
+        label: 'Forecasted price [PLN/MWh]',
         data: prices,
         borderColor: '#6366f1',
         backgroundColor: grad,
@@ -1092,13 +1342,13 @@ function renderStats(forecasts, date) {
   const max  = Math.max(...prices);
   const peak = forecasts.find(f => f.predicted_price_pln === max);
 
-  const dayNames = ['Pon','Wt','Śr','Czw','Pt','Sob','Ndz'];
+  const dayNames = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
   const d = new Date(date + 'T00:00:00');
   const dateLabel = `${dayNames[d.getDay()==0?6:d.getDay()-1]} ${d.getDate()}.${String(d.getMonth()+1).padStart(2,'0')}`;
 
   statsRow.innerHTML = `
     <div class="stat-card accent">
-      <div class="stat-label">Średnia cena</div>
+      <div class="stat-label">Average price</div>
       <div class="stat-value">${avg.toFixed(1)}</div>
       <div class="stat-unit">PLN/MWh</div>
     </div>
@@ -1108,12 +1358,12 @@ function renderStats(forecasts, date) {
       <div class="stat-unit">PLN/MWh</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">Maksimum</div>
+      <div class="stat-label">Maximum</div>
       <div class="stat-value" style="color:#f87171">${max.toFixed(1)}</div>
       <div class="stat-unit">PLN/MWh</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">Godzina peak</div>
+      <div class="stat-label">Peak hour</div>
       <div class="stat-value" style="color:#fbbf24">${String(peak.hour).padStart(2,'0')}:00</div>
       <div class="stat-unit">${dateLabel}</div>
     </div>
@@ -1125,7 +1375,7 @@ function renderTable(forecasts) {
   const prices = forecasts.map(f => f.predicted_price_pln);
   const avg  = prices.reduce((a,b)=>a+b,0) / prices.length;
   const max  = Math.max(...prices);
-  const holidayLabel = f => f.is_holiday_or_weekend ? 'Weekend/Święto' : 'Roboczy';
+  const holidayLabel = f => f.is_holiday_or_weekend ? 'Weekend/Holiday' : 'Business day';
 
   tbody.innerHTML = forecasts.map(f => {
     const cls = priceClass(f.predicted_price_pln, Math.min(...prices), max, avg);
@@ -1153,7 +1403,7 @@ async function runForecast() {
     const data = await r.json();
 
     if (!r.ok) {
-      showBanner(`❌ Błąd API (${r.status}): ${data.detail || 'Nieznany błąd'}`, 'error');
+      showBanner(`❌ API error (${r.status}): ${data.detail || 'Unknown error'}`, 'error');
       return;
     }
 
@@ -1170,13 +1420,13 @@ async function runForecast() {
     resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     showBanner(
-      `✅ Prognoza na ${date} wygenerowana — ${forecasts.length} godzin`,
+      `✅ Forecast for ${date} generated - ${forecasts.length} hours`,
       'success'
     );
     setTimeout(hideBanner, 4000);
 
   } catch (e) {
-    showBanner(`❌ Nie można połączyć się z API: ${e.message}`, 'error');
+    showBanner(`❌ Cannot connect to API: ${e.message}`, 'error');
   } finally {
     btnForecast.disabled = false;
     btnForecast.classList.remove('loading');
@@ -1207,14 +1457,14 @@ async function runManual() {
     });
     const data = await r.json();
     if (!r.ok) {
-      manualError.textContent = `Błąd (${r.status}): ${JSON.stringify(data.detail || data)}`;
+      manualError.textContent = `Error (${r.status}): ${JSON.stringify(data.detail || data)}`;
       manualError.style.display = 'block';
       return;
     }
     manualResultVal.textContent = `${data.prediction.toFixed(2)} PLN/MWh`;
     manualResult.style.display = 'block';
   } catch(e) {
-    manualError.textContent = `Błąd połączenia: ${e.message}`;
+    manualError.textContent = `Connection error: ${e.message}`;
     manualError.style.display = 'block';
   }
 }

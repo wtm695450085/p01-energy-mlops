@@ -1,11 +1,11 @@
-"""Model loader — ładowanie pipeline sklearn z dysku."""
+"""Model loader - loading the sklearn pipeline from disk."""
 import json
 from pathlib import Path
 from typing import Optional
 
 import joblib
 
-# Możliwe lokalizacje modelu (Docker / dev)
+# Possible model locations (Docker / dev)
 _MODEL_CANDIDATES = [
     Path("/app/models/champion/model.joblib"),
     Path("/app/models/model.joblib"),
@@ -41,13 +41,13 @@ def _find_file(candidates: list[Path]) -> Optional[Path]:
 
 
 def load_model() -> None:
-    """Ładuje model z pierwszej istniejącej lokalizacji."""
+    """Loads the model from the first existing location."""
     model_path = _find_file(_MODEL_CANDIDATES)
     metadata_path = _find_file(_METADATA_CANDIDATES)
 
     if model_path is None:
         model_state.error = (
-            "Brak pliku modelu. Uruchom notebook, aby wygenerować models/model.joblib"
+            "Model file missing. Run the notebook to generate models/model.joblib"
         )
         model_state.model = None
         model_state.model_file = None
@@ -58,7 +58,7 @@ def load_model() -> None:
         model_state.model_file = str(model_path)
         model_state.error = None
     except Exception as e:
-        model_state.error = f"Błąd ładowania modelu: {e}"
+        model_state.error = f"Model loading error: {e}"
         model_state.model = None
         return
 
@@ -70,7 +70,7 @@ def load_model() -> None:
 
 
 def reload_model() -> dict:
-    """Przeładowuje model bez restartu aplikacji (dla /admin/reload-model)."""
+    """Reloads the model without restarting the application (for /admin/reload-model)."""
     load_model()
     return {
         "model_loaded": model_state.loaded,
