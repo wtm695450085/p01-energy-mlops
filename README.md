@@ -90,6 +90,25 @@ docker compose up -d --build
 
 > ⚠️ Kontener wymaga dostępu do internetu: `api.raporty.pse.pl` i `open-meteo.com`
 
+### Automatyczne CI/CD (GitHub Actions)
+
+Workflow `.github/workflows/ci-cd.yml` uruchamia CI dla pull requestów i pushów,
+a po udanym pushu do `main` wdraża aplikację na VPS. W GitHub utwórz środowisko
+`production` i dodaj do niego następujące sekrety:
+
+| Secret | Wartość |
+|--------|---------|
+| `SSH_HOST` | adres IP lub DNS serwera |
+| `SSH_PORT` | port SSH, zwykle `22` |
+| `SSH_USER` | użytkownik mający dostęp do Dockera |
+| `SSH_PRIVATE_KEY` | prywatny klucz SSH użytkownika wdrożeniowego |
+| `SSH_KNOWN_HOSTS` | wynik `ssh-keyscan -H -p PORT HOST` zweryfikowany z serwerem |
+| `DEPLOY_PATH` | katalog aplikacji na VPS, np. `/opt/energy-forecast` |
+
+Na serwerze muszą być zainstalowane Docker i plugin Docker Compose. Katalogi
+`data/` oraz `outputs/` nie są usuwane podczas synchronizacji, więc dane
+produkcyjne pozostają między wdrożeniami.
+
 ---
 
 ## Usługi i adresy

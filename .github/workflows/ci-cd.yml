@@ -1,0 +1,116 @@
+name: CI/CD
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: energy-mlops-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    name: Build and test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate Docker Compose configuration
+        run: docker compose config --quiet
+
+      - name: Build API image
+        run: docker build --tag energy-forecast:${{ github.sha }} .
+
+      - name: Start API container
+        run: |
+          docker run --detach --rm \
+            --name energy-forecast-ci \
+            --publish 8000:8000 \
+            --volume "$PWD/models:/app/models:ro" \
+            energy-forecast:${{ github.sha }}
+
+      - name: Wait for health endpoint
+        run: |
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:8000/health > health.json; then
+              python -c 'import json; data=json.load(open("health.json")); assert data["status"] == "ok" and data["model_loaded"] is True'
+              exit 0
+            fi
+            sleep 2
+          done
+          docker logs energy-forecast-ci
+          exit 1
+
+      - name: Test prediction endpoint
+        run: |
+          curl --fail --silent \
+            --header 'Content-Type: application/json' \
+            --data @scripts/sample_payload.json \
+            http://127.0.0.1:8000/predict > prediction.json
+          python -c 'import json; data=json.load(open("prediction.json")); assert data["status"] == "ok" and isinstance(data["prediction"], (int, float))'
+
+      - name: Show API logs on failure
+        if: failure()
+        run: docker logs energy-forecast-ci || true
+
+      - name: Stop API container
+        if: always()
+        run: docker stop energy-forecast-ci || true
+
+  deploy:
+    name: Deploy to VPS
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: ci
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: production
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Synchronize application files
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+        run: |
+          ssh -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" "mkdir -p '$DEPLOY_PATH'"
+          rsync --archive --compress --delete \
+            --exclude '.git/' \
+            --exclude '.github/' \
+            --exclude 'data/' \
+            --exclude 'outputs/' \
+            --exclude 'mlruns/' \
+            --rsh "ssh -p $SSH_PORT" \
+            ./ "$SSH_USER@$SSH_HOST:$DEPLOY_PATH/"
+
+      - name: Rebuild and restart services
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+        run: |
+          ssh -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" \
+            "cd '$DEPLOY_PATH' && docker compose up -d --build --remove-orphans && docker compose ps"
