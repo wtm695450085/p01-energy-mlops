@@ -4,97 +4,97 @@
     "mae_model": 80.34,
     "rmse_model": 84.76,
     "mae_baseline": 39.16,
-    "evaluated_at": "2026-07-15T10:00:17.119082"
+    "evaluated_at": "2026-07-16T10:00:23.933356"
   },
   {
     "data_prognozy": "2026-06-19",
     "mae_model": 111.81,
     "rmse_model": 161.03,
     "mae_baseline": 179.85,
-    "evaluated_at": "2026-07-15T10:00:17.120347"
+    "evaluated_at": "2026-07-16T10:00:23.936716"
   },
   {
     "data_prognozy": "2026-06-20",
     "mae_model": 73.77,
     "rmse_model": 111.65,
     "mae_baseline": 179.28,
-    "evaluated_at": "2026-07-15T10:00:17.121428"
+    "evaluated_at": "2026-07-16T10:00:23.937719"
   },
   {
     "data_prognozy": "2026-06-21",
     "mae_model": 91.04,
     "rmse_model": 91.04,
     "mae_baseline": 130.24,
-    "evaluated_at": "2026-07-15T10:00:17.122327"
+    "evaluated_at": "2026-07-16T10:00:23.938484"
   },
   {
     "data_prognozy": "2026-06-23",
     "mae_model": 221.44,
     "rmse_model": 360.28,
     "mae_baseline": 554.87,
-    "evaluated_at": "2026-07-15T10:00:17.123376"
+    "evaluated_at": "2026-07-16T10:00:23.939397"
   },
   {
     "data_prognozy": "2026-06-25",
     "mae_model": 198.38,
     "rmse_model": 245.62,
     "mae_baseline": 212.54,
-    "evaluated_at": "2026-07-15T10:00:17.124143"
+    "evaluated_at": "2026-07-16T10:00:23.940234"
   },
   {
     "data_prognozy": "2026-06-26",
     "mae_model": 8.52,
     "rmse_model": 8.52,
     "mae_baseline": 74.74,
-    "evaluated_at": "2026-07-15T10:00:17.124975"
+    "evaluated_at": "2026-07-16T10:00:23.941230"
   },
   {
     "data_prognozy": "2026-06-27",
     "mae_model": 150.21,
     "rmse_model": 210.32,
     "mae_baseline": 203.8,
-    "evaluated_at": "2026-07-15T10:00:17.125745"
+    "evaluated_at": "2026-07-16T10:00:23.942091"
   },
   {
     "data_prognozy": "2026-06-29",
     "mae_model": 129.74,
     "rmse_model": 239.33,
     "mae_baseline": 359.73,
-    "evaluated_at": "2026-07-15T10:00:17.126794"
+    "evaluated_at": "2026-07-16T10:00:23.942899"
   },
   {
     "data_prognozy": "2026-07-01",
     "mae_model": 137.85,
     "rmse_model": 202.68,
     "mae_baseline": 252.41,
-    "evaluated_at": "2026-07-15T10:00:17.127795"
+    "evaluated_at": "2026-07-16T10:00:23.943680"
   },
   {
     "data_prognozy": "2026-07-03",
     "mae_model": 165.27,
     "rmse_model": 207.24,
     "mae_baseline": 333.71,
-    "evaluated_at": "2026-07-15T10:00:17.128517"
+    "evaluated_at": "2026-07-16T10:00:23.944533"
   },
   {
     "data_prognozy": "2026-07-06",
     "mae_model": 126.77,
     "rmse_model": 158.71,
     "mae_baseline": 352.85,
-    "evaluated_at": "2026-07-15T10:00:17.129256"
+    "evaluated_at": "2026-07-16T10:00:23.945268"
   },
   {
     "data_prognozy": "2026-07-11",
     "mae_model": 82.07,
     "rmse_model": 93.79,
     "mae_baseline": 267.71,
-    "evaluated_at": "2026-07-15T10:00:17.129893"
+    "evaluated_at": "2026-07-16T10:00:23.946029"
   },
   {
     "data_prognozy": "2026-07-14",
     "mae_model": 74.85,
     "rmse_model": 87.36,
     "mae_baseline": 268.29,
-    "evaluated_at": "2026-07-15T10:00:17.130656"
+    "evaluated_at": "2026-07-16T10:00:23.946754"
   }
 ]
